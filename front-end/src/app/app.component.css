@@ -1,0 +1,9 @@
+#app-nav {
+    margin: 0;
+    background-color: rgb(53, 53, 53);
+}
+
+#logo {
+    max-height: 50px;
+    filter: invert(1);
+}
