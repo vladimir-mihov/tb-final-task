@@ -1,9 +1,9 @@
-#app-nav {
-    margin: 0;
-    background-color: rgb(53, 53, 53);
+#logo {
+    max-height: 40px;
+    outline: none;
 }
 
-#logo {
-    max-height: 50px;
-    filter: invert(1);
+#app-main {
+    width: 80%;
+    margin: 20px auto;
 }
