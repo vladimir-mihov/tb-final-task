@@ -1,0 +1,30 @@
+<nav class="d-flex flex-row justify-content-around">
+    <input type="text" [(ngModel)]="filter" class="form-control w-50" placeholder="Search">
+    <div class="dropdown">
+        <button class="btn btn-dark dropdown-toggle" type="button" data-toggle="dropdown">Images per page: {{imagesPerPage}}</button>
+        <ul class="dropdown-menu" (click)="imagesPerPage=$event.target.innerHTML;">
+            <li class="dropdown-item">5</li>
+            <li class="dropdown-item">10</li>
+            <li class="dropdown-item">15</li>
+        </ul>
+    </div>
+</nav>
+
+<app-images [images]="images" [page]="page" [imagesPerPage]="imagesPerPage" [filter]="filter">
+</app-images>
+
+<nav class="d-flex flex-row justify-content-center">
+    <ul class="pagination">
+        <li class="page-item" [class.active]="page === 1" (click)="page = 1">
+            <a href="#" class="page-link">1</a>
+        </li>
+        <li class="page-item" [class.active]="page === 2" (click)="page = 2">
+            <a href="#" class="page-link">2</a>
+        </li>
+        <li class="page-item" [class.active]="page === 3" (click)="page = 3">
+            <a href="#" class="page-link">3</a>
+        </li>
+    </ul>
+</nav>
+
+<button id="add" class="btn btn-dark rounded-circle" routerLink="/add"></button>
