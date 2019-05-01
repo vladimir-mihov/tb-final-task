@@ -3,13 +3,12 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    border: 1px solid black;
 }
 
 .image-container {
     margin: 20px;
     padding: 20px;
-    border: 1px solid black;
+    border: 1px solid #4f5b62;
 }
 
 .image-title {
@@ -20,4 +19,5 @@
 .image {
     max-width: 200px;
     max-height: 200px;
+    background-color: #000;
 }

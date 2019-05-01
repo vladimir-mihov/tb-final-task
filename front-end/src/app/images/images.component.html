@@ -1,5 +1,6 @@
 <main id="images-container">
-    <section *ngFor="let image of images | slice:visibleSlice[0]:visibleSlice[1]" class="image-container">
+    <section class="image-container"
+        *ngFor="let image of images | filterIncludes:filter | slice:(page-1)*imagesPerPage:page*imagesPerPage">
         <p class="image-title">{{image.title}}</p>
         <img src="{{image.url}}" class="image">
     </section>
