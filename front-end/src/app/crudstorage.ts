@@ -1,9 +1,10 @@
-import { ImageData } from './image-data';
+import { ImageData } from './data/image-data';
 import { Observable } from 'rxjs';
+import { CreationData } from './data/creation-data';
 
 export interface CRUDStorage {
-    create(image: ImageData): void;
+    create(data: CreationData): void;
     readAll(): Observable<ImageData[]>;
     update(oldImage: ImageData, newImage: ImageData): void;
-    delete(image: ImageData): void;
+    delete(imageID: number): void;
 }

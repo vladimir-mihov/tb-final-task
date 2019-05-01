@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ImageData } from './image-data';
+import { ImageData } from './data/image-data';
 import { Observable, of } from 'rxjs';
 import { CRUDStorage } from './crudstorage';
+import { CreationData } from './data/creation-data';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,14 @@ import { CRUDStorage } from './crudstorage';
 export class InMemoryCRUDService implements CRUDStorage {
 
     images: ImageData[] = [
-        new ImageData(0, 'Best meme', 'assets/loss.png'),
-        new ImageData(1, 'Best meme', 'assets/loss.png')
+        new ImageData(0, 'Meme 0', 'assets/loss.png'),
+        new ImageData(1, 'Meme 1', 'assets/loss.png')
     ];
 
-    create(image: ImageData): void {
-        image.id = this.images.length;
-        this.images.push(image);
+    create(data: CreationData): Observable<number> {
+        const len = this.images.length;
+        this.images.push(new ImageData(len, data.title, 'assets/loss.png'));
+        return of(1);
     }
     
     readAll(): Observable<ImageData[]> {
@@ -23,11 +25,10 @@ export class InMemoryCRUDService implements CRUDStorage {
     }
 
     update(oldImage: ImageData, newImage: ImageData): void {
-        if(newImage.title) { oldImage.title = newImage.title; }
-        if(newImage.url) { oldImage.url = newImage.url; }
+        
     }
 
-    delete(image: ImageData): void {
-        this.images.splice(image.id,1);
+    delete(imageID: number): void {
+        this.images.splice(imageID,1);
     }
 }
