@@ -1,1 +1,5 @@
-meme-it-platform-service-api.zip
+# Ignore
+pgdata/*
+
+# Alllow
+!pgdata/.gitkeep
