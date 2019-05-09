@@ -1,5 +1,5 @@
 # Ignore
 pgdata/*
 
-# Alllow
+# Allow
 !pgdata/.gitkeep
