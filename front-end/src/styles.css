@@ -1,3 +1,12 @@
 body {
     margin: 0;
 }
+
+.bottom-right-navigator-button {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+    background-size: cover;
+}

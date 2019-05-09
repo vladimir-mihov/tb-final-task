@@ -1,11 +1,45 @@
-<div class="form">
-    <div class="form-group">
-        <label>Title:</label>
-        <input type="text" [(ngModel)]="imageTitle" class="form-control">
+<form>
+    <div class="form-group row">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="title">
     </div>
-    <div class="form-group">
-        <label>Choose a file:</label>
-        <input #fileInput type="file" class="form-control-file">
+    
+    <div class="form-group row align-items-baseline">
+
+        <label class="m-1">Rows</label>
+        <input type="number" min="1" max="2" name="rows"
+            [(ngModel)]="_rows" (change)="updateRows();"
+            class="form-control form-control-sm col-1">
+
+        <label class="m-1">Columns</label>
+        <input type="number" min="1" max="2" name="cols"
+            [(ngModel)]="_cols" (change)="updateCols();"
+            class="form-control form-control-sm col-1">
+
     </div>
-    <button type="button" class="btn btn-primary" (click)="upload()">Submit</button>
-</div>
+
+    <div id="input-container">
+        <div class="form-group row flex-wrap justify-content-center"
+            *ngFor="let x of rows">
+            <div class="form-group border border-dark rounded p-3 m-2"
+                *ngFor="let y of cols"
+                (change)="redraw(x,y,$event);">
+                <label>Text</label>
+                <input type="text" class="form-control">
+                <label>Image</label>
+                <input type="file" class="form-control-file">
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <canvas width="{{ _imageSize * _cols }}" height="{{ _imageSize * _rows }}" id="canvas"
+            class="border rounded border-dark my-5"></canvas>
+    </div>
+
+    <button type="button" class="btn btn-primary" (click)="submit();">Create</button>
+</form>
+
+<button
+    class="btn btn-dark rounded-circle bottom-right-navigator-button"
+    routerLink="/"></button>

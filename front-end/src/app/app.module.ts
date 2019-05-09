@@ -6,16 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ImagesComponent } from './images/images.component';
 import { ImageNavigatorComponent } from './image-navigator/image-navigator.component';
-import { FilterIncludesPipe } from './filter-includes.pipe';
 import { ImageAddComponent } from './image-add/image-add.component';
+import { ImageEditorComponent } from './image-editor/image-editor.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ImagesComponent,
     ImageNavigatorComponent,
-    FilterIncludesPipe,
     ImageAddComponent,
+    ImageEditorComponent
   ],
   imports: [
     BrowserModule,

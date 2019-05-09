@@ -1,7 +1,11 @@
-<main id="images-container">
-    <section class="image-container"
-        *ngFor="let image of images | filterIncludes:filter | slice:(page-1)*imagesPerPage:page*imagesPerPage">
-        <p class="image-title">{{image.title}}</p>
-        <img src="{{image.url}}" class="image">
+<main class="d-flex flex-row flex-wrap justify-content-center">
+    <section class="m-4 p-4 border border-dark rounded"
+        *ngFor="let image of images">
+        <p class="m-0 text-center">{{image.title}}</p>
+        <img src="{{image.url}}" class="image bg-dark rounded">
+        <div class="d-flex justify-content-around">
+        <button type="button" class="btn btn-warning m-2" (click)="edit(image);">Edit</button>
+        <button type="button" class="btn btn-danger m-2" (click)="delete(image.id)">Delete</button>
+        </div>
     </section>
 </main>
