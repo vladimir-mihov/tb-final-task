@@ -1,4 +1,11 @@
 # Ignore
+.idea/
+target/
+out/
+bin/
+
+*.iml
+
 pgdata/*
 
 # Allow
