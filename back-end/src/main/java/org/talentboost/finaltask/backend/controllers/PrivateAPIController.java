@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.talentboost.finaltask.backend.data.Image;
-import org.talentboost.finaltask.backend.exceptions.UnsupportedMimeTypeException;
 import org.talentboost.finaltask.backend.exceptions.VladoException;
 import org.talentboost.finaltask.backend.repository.ImageRepository;
 import org.talentboost.finaltask.backend.util.FileUtils;
@@ -16,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 public class PrivateAPIController {
 
     @Autowired
