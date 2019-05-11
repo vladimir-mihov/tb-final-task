@@ -36,7 +36,7 @@ public class PrivateAPIController {
     }
 
     @ExceptionHandler
-    public void handleUnsupportedMimeType(
+    public void handleException(
             VladoException e,
             HttpServletResponse response
     ) throws IOException {

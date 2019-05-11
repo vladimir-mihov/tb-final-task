@@ -34,6 +34,10 @@ public class FileUtils {
         return fileExtension;
     }
 
+    public String getFileNameFromUrl(String url) {
+        return url.substring(url.lastIndexOf("/") + 1);
+    }
+
     /**
      * Create file into the static directory and return the filename
      */
@@ -48,10 +52,6 @@ public class FileUtils {
         );
 
         return fileName;
-    }
-
-    public String getFileNameFromUrl(String url) {
-        return url.substring(url.lastIndexOf("/") + 1);
     }
 
     public void deleteFile(String fileName) throws IOException {
