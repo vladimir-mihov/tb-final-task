@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { InMemoryCRUDService } from '../in-memory-crud.service';
-import { CreationData } from '../data/creation-data';
+import {CreationData} from '../data/creation-data';
+import {RemoteCRUDService} from '../remote-crud.service';
 
 @Component({
     selector: 'app-image-add',
@@ -27,9 +27,10 @@ export class ImageAddComponent implements OnInit {
     inputContainer: HTMLElement;
 
     constructor(
-        private imageService: InMemoryCRUDService,
+        private imageService: RemoteCRUDService,
         private router: Router
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -79,7 +80,7 @@ export class ImageAddComponent implements OnInit {
         const text = inputs[0].value;
         const file = inputs[1].files[0];
 
-        if(file) {
+        if (file) {
             const fileReader = new FileReader();
             const img = new Image();
 

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ImageData } from './data/image-data';
+import {Injectable} from '@angular/core';
+import {ImageData} from './data/image-data';
 
 @Injectable({
     providedIn: 'root'

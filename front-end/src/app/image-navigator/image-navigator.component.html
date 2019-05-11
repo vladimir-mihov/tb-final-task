@@ -1,37 +1,39 @@
-<div>
 <nav class="d-flex flex-row justify-content-center">
     <input type="text"
-            (change)="filter = $event.target.value"
-            class="form-control mr-3"
-            placeholder="Search">
-    <div class="dropdown">
-        <button class="btn btn-dark dropdown-toggle"
-                type="button"
-                data-toggle="dropdown">Images per page: {{imagesPerPage}}</button>
-        <ul class="dropdown-menu"
+           (change)="filter = $event.target.value"
+           class="form-control mr-3"
+           placeholder="Search">
+    <div ngbDropdown>
+        <button class="btn btn-dark" ngbDropdownToggle
+                type="button">Images per page: {{imagesPerPage}}</button>
+        <ul ngbDropdownMenu
             (click)="imagesPerPage = $event.target.innerHTML">
-            <li class="dropdown-item">5</li>
-            <li class="dropdown-item">10</li>
-            <li class="dropdown-item">15</li>
+            <li ngbDropdownItem>5</li>
+            <li ngbDropdownItem>10</li>
+            <li ngbDropdownItem>15</li>
         </ul>
     </div>
 </nav>
 
 <app-images
     [images]="images"
-    (deleteEmitter)="delete($event);">
-</app-images>
+    [page]="page"
+    [imagesPerPage]="imagesPerPage"
+    (deleteEmitter)="delete($event);"
+></app-images>
 
-<nav class="d-flex flex-row justify-content-center" *ngIf="images.length > 0">
-    <ul class="pagination">
-        <li class="page-item" *ngFor="let i of listedPages"
-            [class.active]="page === i" (click)="page = i;">
-            <a href="#" class="page-link">{{ i }}</a>
-        </li>
-    </ul>
-</nav>
+<ngb-pagination
+    *ngIf="images.length"
+    [(page)]="page"
+    [pageSize]="imagesPerPage"
+    [collectionSize]="images.length"
+    [maxSize]="5"
+    [rotate]="true"
+    [ellipses]="false"
+    [boundaryLinks]="true"
+></ngb-pagination>
 
 <button
     class="btn btn-dark rounded-circle bottom-right-navigator-button"
-    routerLink="/add"></button>
-</div>
+    routerLink="/add"
+></button>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ImageEditorService } from '../image-editor.service';
-import { InMemoryCRUDService } from '../in-memory-crud.service';
-import { CreationData } from '../data/creation-data';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+
+import {ImageEditorService} from '../image-editor.service';
+import {CreationData} from '../data/creation-data';
+import {Router} from '@angular/router';
+import {RemoteCRUDService} from '../remote-crud.service';
 
 @Component({
     selector: 'app-image-editor',
@@ -16,9 +17,10 @@ export class ImageEditorComponent implements OnInit {
 
     constructor(
         private editorService: ImageEditorService,
-        private imageService: InMemoryCRUDService,
+        private imageService: RemoteCRUDService,
         private router: Router
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.titleInput = document.getElementById('title') as HTMLInputElement;
