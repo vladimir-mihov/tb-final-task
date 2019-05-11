@@ -83,16 +83,19 @@ public class PrivateAPIController {
     }
 
     @DeleteMapping("/meme/{id}")
-    public void deleteImage(
+    public Image deleteImage(
             @PathVariable("id") int id
     ) throws IOException {
         Optional<Image> toBeDeleted = repository.findById(id);
+
         if(toBeDeleted.isPresent()) {
             String url = toBeDeleted.get().getUrl();
 
             fileUtils.deleteFile(fileUtils.getFileNameFromUrl(url));
             repository.deleteById(id);
         }
+
+        return toBeDeleted.orElse(null);
     }
 
 }
