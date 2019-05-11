@@ -1,12 +1,12 @@
 # Ignore
-.idea/
 target/
 out/
 bin/
 
+.idea/
 *.iml
 
-pgdata/*
+static/*
 
 # Allow
-!pgdata/.gitkeep
+!static/.gitkeep

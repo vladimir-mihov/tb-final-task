@@ -21,7 +21,7 @@ public class PrivateAPIController {
     @Autowired
     private ImageRepository repository;
 
-    private final String STATIC_FOLDER = "static";
+    private final String STATIC_FOLDER = "../static";
     private final Map<String, String> mimeTypeMappings;
 
     public PrivateAPIController() {
