@@ -8,5 +8,7 @@ bin/
 
 static/*
 
+.attach_pid*
+
 # Allow
 !static/.gitkeep
