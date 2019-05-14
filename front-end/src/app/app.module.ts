@@ -7,18 +7,22 @@ import {NgbDropdownModule, NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ImagesComponent} from './images/images.component';
+import {ImageViewerComponent} from './image-viewer/image-viewer.component';
 import {ImageNavigatorComponent} from './image-navigator/image-navigator.component';
 import {ImageAddComponent} from './image-add/image-add.component';
 import {ImageEditorComponent} from './image-editor/image-editor.component';
+import {RemoteImageExplorerComponent} from './remote-image-explorer/remote-image-explorer.component';
+import {ImageSaverTemplateComponent} from './image-saver-template/image-saver-template.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        ImagesComponent,
+        ImageViewerComponent,
         ImageNavigatorComponent,
         ImageAddComponent,
-        ImageEditorComponent
+        ImageEditorComponent,
+        RemoteImageExplorerComponent,
+        ImageSaverTemplateComponent
     ],
     imports: [
         BrowserModule,

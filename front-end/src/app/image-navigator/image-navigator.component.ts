@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 import {ImageData} from '../data/image-data';
-import {RemoteCRUDService} from '../remote-crud.service';
+import {CRUDService} from '../crud.service';
 
 @Component({
     selector: 'app-image-navigator',
@@ -11,16 +11,15 @@ import {RemoteCRUDService} from '../remote-crud.service';
 export class ImageNavigatorComponent implements OnInit {
 
     images: ImageData[] = [];
+    filteredImages: ImageData[] = [];
 
     page = 1;
     imagesPerPage = 5;
+
     filter = '';
 
-    listedPages: number[];
-    pageCount: number;
-
     constructor(
-        private imageService: RemoteCRUDService
+        private imageService: CRUDService
     ) {
     }
 
@@ -32,19 +31,22 @@ export class ImageNavigatorComponent implements OnInit {
         this.imageService.readAll().subscribe(
             images => {
                 this.images = images;
-                this.updatePaging();
+                this.filterImages();
             }
         );
     }
 
-    updatePaging() {
-        this.pageCount = Math.ceil(this.images.length / this.imagesPerPage);
-
-        const firstDisplayedPage = this.page > 1 ? this.page - 1 : 1;
-        const lastDisplayedPage = firstDisplayedPage + 2 < this.pageCount ?
-            firstDisplayedPage + 2 : this.pageCount;
-
-        this.listedPages = new Array(lastDisplayedPage - firstDisplayedPage + 1).fill(0).map((x, i) => firstDisplayedPage + i);
+    filterImages() {
+        if (this.filter) {
+            this.filteredImages = this.images.filter(
+                iData => {
+                    const lowerCaseFilter = this.filter.toLowerCase();
+                    return iData.title.toLowerCase().includes(lowerCaseFilter);
+                }
+            );
+        } else {
+            this.filteredImages = this.images;
+        }
     }
 
     delete(imageID: number) {

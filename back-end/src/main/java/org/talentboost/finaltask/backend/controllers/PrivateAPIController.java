@@ -6,11 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.talentboost.finaltask.backend.data.Image;
-import org.talentboost.finaltask.backend.exceptions.VladoException;
 import org.talentboost.finaltask.backend.repository.ImageRepository;
 import org.talentboost.finaltask.backend.util.FileUtils;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
@@ -22,25 +20,17 @@ public class PrivateAPIController {
     private ImageRepository repository;
 
     private final FileUtils fileUtils;
-    private final String BASE_URL = "http://localhost:3333/";
+
+    private final String STATIC_FOLDER = "/static";
 
     public PrivateAPIController() {
         Map<String, String> tmpMap = new HashMap<>();
-        String staticFolder = "../static";
 
         tmpMap.put("image/jpeg", "jpg");
         tmpMap.put("image/png", "png");
         tmpMap.put("image/gif", "gif");
 
-        this.fileUtils = new FileUtils(staticFolder, Collections.unmodifiableMap(tmpMap));
-    }
-
-    @ExceptionHandler
-    public void handleException(
-            VladoException e,
-            HttpServletResponse response
-    ) throws IOException {
-        response.sendError(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+        this.fileUtils = new FileUtils(STATIC_FOLDER, Collections.unmodifiableMap(tmpMap));
     }
 
     @PostMapping("/meme")
@@ -50,7 +40,7 @@ public class PrivateAPIController {
     ) throws IOException {
         String fileName = fileUtils.createFile(files[0]);
 
-        Image toBeSaved = new Image(title, BASE_URL + fileName);
+        Image toBeSaved = new Image(title, fileName);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -74,7 +64,7 @@ public class PrivateAPIController {
                 String newFileName = fileUtils.createFile(files[0]);
 
                 fileUtils.deleteFile(oldFileName);
-                image.setUrl(BASE_URL + newFileName);
+                image.setUrl(newFileName);
             }
 
             repository.save(image);

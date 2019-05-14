@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import {ImageEditorService} from '../image-editor.service';
 import {CreationData} from '../data/creation-data';
 import {Router} from '@angular/router';
-import {RemoteCRUDService} from '../remote-crud.service';
+import {CRUDService} from '../crud.service';
 
 @Component({
     selector: 'app-image-editor',
@@ -12,33 +12,29 @@ import {RemoteCRUDService} from '../remote-crud.service';
 })
 export class ImageEditorComponent implements OnInit {
 
-    titleInput: HTMLInputElement;
-    fileInput: HTMLInputElement;
-
     constructor(
         private editorService: ImageEditorService,
-        private imageService: RemoteCRUDService,
+        private imageService: CRUDService,
         private router: Router
     ) {
     }
 
-    ngOnInit() {
-        this.titleInput = document.getElementById('title') as HTMLInputElement;
-        this.fileInput = document.getElementById('file') as HTMLInputElement;
+    title = '';
 
-        this.titleInput.value = this.editorService.imageData.title;
-        this.titleInput.focus();
+    ngOnInit() {
+        if (!this.editorService.imageData) {
+            this.router.navigateByUrl('/');
+        }
+
+        this.title = this.editorService.imageData.title;
+        document.getElementById('title').focus();
     }
 
-    submit() {
-        const file = this.fileInput.files[0];
-
-        this.imageService.update(
-            this.editorService.imageData,
-            new CreationData(this.titleInput.value, file)
-        );
-
-        this.router.navigateByUrl('/');
+    submit(data: CreationData) {
+        this.imageService.update(this.editorService.imageData.id, data)
+            .subscribe(
+                () => this.router.navigateByUrl('/')
+            );
     }
 
 }

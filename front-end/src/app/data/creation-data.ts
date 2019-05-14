@@ -1,6 +1,7 @@
 export class CreationData {
     constructor(
         public title: string,
-        public file: File) {
+        public file: File
+    ) {
     }
 }

@@ -1,0 +1,6 @@
+# Ignore
+*
+
+# Accept
+!dist/
+!nginx.conf

@@ -1,3 +1,13 @@
+<nav>
+    <div ngbDropdown>
+        <button class="btn btn-outline-dark btn-block mb-2" type="button" ngbDropdownToggle="">{{currentDomain.name}}</button>
+        <ul ngbDropdownMenu>
+            <li *ngFor="let domain of domains"
+                ngbDropdownItem
+                (click)="currentDomain = domain">{{domain.name}}</li>
+        </ul>
+    </div>
+</nav>
 <nav class="d-flex flex-row justify-content-center">
     <input type="text"
            [(ngModel)]="filter"
@@ -15,12 +25,15 @@
     </div>
 </nav>
 
-<app-image-viewer
-    [images]="filteredImages"
-    [page]="page"
-    [imagesPerPage]="imagesPerPage"
-    (deleteEmitter)="delete($event);"
-></app-image-viewer>
+<main class="d-flex flex-row flex-wrap justify-content-center">
+    <section class="card mx-5 my-2"
+             *ngFor="let image of filteredImages | slice:(page-1)*imagesPerPage:page*imagesPerPage">
+        <img [src]="image.url" class="card-img image">
+        <div class="card-body">
+            <p class="card-text text-center">{{image.title}}</p>
+        </div>
+    </section>
+</main>
 
 <ngb-pagination
     *ngIf="filteredImages.length"
@@ -32,8 +45,3 @@
     [ellipses]="false"
     [boundaryLinks]="true"
 ></ngb-pagination>
-
-<button
-    class="btn btn-dark rounded-circle bottom-right-navigator-button"
-    routerLink="/add"
-></button>

@@ -1,7 +1,8 @@
 package org.talentboost.finaltask.backend.util;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
-import org.talentboost.finaltask.backend.exceptions.UnsupportedMimeTypeException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,7 +29,10 @@ public class FileUtils {
         String fileExtension = allowedMimeTypes.get(fileMimeType);
 
         if (fileExtension == null) {
-            throw new UnsupportedMimeTypeException("Mime type is not supported.");
+            throw new ResponseStatusException(
+                    HttpStatus.UNSUPPORTED_MEDIA_TYPE,
+                    "Mime type is not supported."
+            );
         }
 
         return fileExtension;

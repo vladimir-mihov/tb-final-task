@@ -4,11 +4,11 @@ import {Router} from '@angular/router';
 import {ImageEditorService} from '../image-editor.service';
 
 @Component({
-    selector: 'app-images',
-    templateUrl: './images.component.html',
-    styleUrls: ['./images.component.css']
+    selector: 'app-image-viewer',
+    templateUrl: './image-viewer.component.html',
+    styleUrls: ['./image-viewer.component.css']
 })
-export class ImagesComponent {
+export class ImageViewerComponent {
     @Input() images: ImageData[];
     @Input() page: number;
     @Input() imagesPerPage: number;
