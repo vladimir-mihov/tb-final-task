@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.talentboost.finaltask.backend.data.Image;
 import org.talentboost.finaltask.backend.repository.ImageRepository;
-import org.talentboost.finaltask.backend.util.FileUtils;
+import org.talentboost.finaltask.backend.util.FileService;
 
 import java.io.IOException;
 import java.util.*;
@@ -19,26 +19,15 @@ public class PrivateAPIController {
     @Autowired
     private ImageRepository repository;
 
-    private final FileUtils fileUtils;
-
-    private final String STATIC_FOLDER = "/static";
-
-    public PrivateAPIController() {
-        Map<String, String> tmpMap = new HashMap<>();
-
-        tmpMap.put("image/jpeg", "jpg");
-        tmpMap.put("image/png", "png");
-        tmpMap.put("image/gif", "gif");
-
-        this.fileUtils = new FileUtils(STATIC_FOLDER, Collections.unmodifiableMap(tmpMap));
-    }
+    @Autowired
+    private FileService fileService;
 
     @PostMapping("/meme")
     public ResponseEntity<Image> createImage(
             @RequestParam("title") String title,
             @RequestParam("file") MultipartFile[] files
     ) throws IOException {
-        String fileName = fileUtils.createFile(files[0]);
+        String fileName = fileService.createFile(files[0]);
 
         Image toBeSaved = new Image(title, fileName);
 
@@ -60,10 +49,10 @@ public class PrivateAPIController {
             image.setTitle(Objects.requireNonNull(title));
 
             if(files != null && files.length > 0) {
-                String oldFileName = fileUtils.getFileNameFromUrl(image.getUrl());
-                String newFileName = fileUtils.createFile(files[0]);
+                String oldFileName = fileService.getFileNameFromUrl(image.getUrl());
+                String newFileName = fileService.createFile(files[0]);
 
-                fileUtils.deleteFile(oldFileName);
+                fileService.deleteFile(oldFileName);
                 image.setUrl(newFileName);
             }
 
@@ -81,7 +70,7 @@ public class PrivateAPIController {
         if(toBeDeleted.isPresent()) {
             String url = toBeDeleted.get().getUrl();
 
-            fileUtils.deleteFile(fileUtils.getFileNameFromUrl(url));
+            fileService.deleteFile(fileService.getFileNameFromUrl(url));
             repository.deleteById(id);
         }
 

@@ -1,24 +1,29 @@
 package org.talentboost.finaltask.backend.util;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-public class FileUtils {
+@Service
+public class FileService {
 
-    private String staticDirectory;
+    private String staticDirectory = "/static";
     private Map<String,String> allowedMimeTypes;
 
-    public FileUtils(String staticDirectory, Map<String, String> allowedMimeTypes) {
-        this.staticDirectory = staticDirectory;
-        this.allowedMimeTypes = allowedMimeTypes;
+    public FileService() {
+        Map<String, String> tmpMap = new HashMap<>();
+
+        tmpMap.put("image/jpeg", "jpg");
+        tmpMap.put("image/png", "png");
+        tmpMap.put("image/gif", "gif");
+
+        this.allowedMimeTypes = Collections.unmodifiableMap(tmpMap);
     }
 
     /**
