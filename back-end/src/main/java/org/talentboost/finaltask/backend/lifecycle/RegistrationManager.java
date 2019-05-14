@@ -14,16 +14,18 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class RegistrationManager {
 
     private static final String APP_NAME = "VLADO";
     private static final String APP_ADDRESS = String.format("http://%s:8080",
-            System.getenv("HOST_IP"));
+            Objects.requireNonNull(System.getenv("HOST_IP")));
     private static String APP_ID;
 
     @PostConstruct
@@ -49,13 +51,14 @@ public class RegistrationManager {
             );
         }
 
-        BufferedReader br = new BufferedReader(
-                new InputStreamReader(response.getEntity().getContent())
-        );
-
-        APP_ID = br.readLine();
-
-        client.close();
+        try (
+                InputStream inStream = response.getEntity().getContent();
+                InputStreamReader inReader = new InputStreamReader(inStream);
+                BufferedReader bufReader = new BufferedReader(inReader)
+        ) {
+            APP_ID = bufReader.readLine();
+            client.close();
+        }
     }
 
     @PreDestroy
