@@ -10,13 +10,13 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
-    private String url;
+    private String image;
 
     public Image() {}
 
-    public Image(String title, String url) {
+    public Image(String title, String image) {
         this.title = title;
-        this.url = url;
+        this.image = image;
     }
 
     public Integer getId() {
@@ -35,11 +35,11 @@ public class Image {
         this.title = title;
     }
 
-    public String getUrl() {
-        return url;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -23,10 +23,14 @@ import java.util.Objects;
 @Component
 public class RegistrationManager {
 
-    private static final String APP_NAME = "VLADO";
-    private static final String APP_ADDRESS = String.format("http://%s:8080",
-            Objects.requireNonNull(System.getenv("HOST_IP")));
-    private static String APP_ID;
+    private final String APP_NAME = "VLADO";
+    private final String APP_ADDRESS;
+    private String APP_ID;
+
+    RegistrationManager() {
+        APP_ADDRESS = String.format("http://%s:8080",
+                Objects.requireNonNull(System.getenv("HOST_IP")));
+    }
 
     @PostConstruct
     public void register() throws IOException {
@@ -65,7 +69,9 @@ public class RegistrationManager {
     public void deregister() throws IOException {
         CloseableHttpClient client = HttpClients.createMinimal();
 
-        HttpDelete delete = new HttpDelete("http://meme-it-platform-service-api.herokuapp.com/domain/deregister/" + APP_ID);
+        HttpDelete delete = new HttpDelete(
+                "http://meme-it-platform-service-api.herokuapp.com/" +
+                        "domain/deregister/" + APP_ID);
 
         client.execute(delete);
         client.close();

@@ -49,11 +49,11 @@ public class PrivateAPIController {
             image.setTitle(Objects.requireNonNull(title));
 
             if(files != null && files.length > 0) {
-                String oldFileName = fileService.getFileNameFromUrl(image.getUrl());
+                String oldFileName = fileService.getFileNameFromUrl(image.getImage());
                 String newFileName = fileService.createFile(files[0]);
 
                 fileService.deleteFile(oldFileName);
-                image.setUrl(newFileName);
+                image.setImage(newFileName);
             }
 
             repository.save(image);
@@ -68,7 +68,7 @@ public class PrivateAPIController {
         Optional<Image> toBeDeleted = repository.findById(id);
 
         if(toBeDeleted.isPresent()) {
-            String url = toBeDeleted.get().getUrl();
+            String url = toBeDeleted.get().getImage();
 
             fileService.deleteFile(fileService.getFileNameFromUrl(url));
             repository.deleteById(id);

@@ -16,16 +16,16 @@ public class PublicAPIController {
     @Autowired
     private ImageRepository repository;
 
-    private final String BASE_URL = "http://" +
-            Objects.requireNonNull(System.getenv("STATIC_SERVER_IP")) +
-            ":8090/";
+    private final String STATIC_SERVER_BASE_URL = String.format("http://%s:8090/",
+            Objects.requireNonNull(System.getenv("STATIC_SERVER_IP"))
+    );
 
     @GetMapping("/meme")
     public Iterable<Image> getAllImages() {
         Iterable<Image> images = repository.findAll();
 
-        for(Image image : images) {
-            image.setUrl(BASE_URL + image.getUrl());
+        for (Image image : images) {
+            image.setImage(STATIC_SERVER_BASE_URL + image.getImage());
         }
 
         return images;

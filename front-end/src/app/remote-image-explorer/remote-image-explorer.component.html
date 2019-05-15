@@ -28,7 +28,7 @@
 <main class="d-flex flex-row flex-wrap justify-content-center">
     <section class="card mx-5 my-2"
              *ngFor="let image of filteredImages | slice:(page-1)*imagesPerPage:page*imagesPerPage">
-        <img [src]="image.url" class="card-img image">
+        <img [src]="image.image" class="card-img image">
         <div class="card-body">
             <p class="card-text text-center">{{image.title}}</p>
         </div>
