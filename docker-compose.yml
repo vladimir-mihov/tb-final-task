@@ -7,11 +7,9 @@ services:
         volumes:
             - vlado-pgdata:/var/lib/postgresql/data
     spring:
-        build: back-end
         image: vladimirmihov/spring
         environment:
-            - STATIC_SERVER_IP=192.168.0.100
-            - HOST_IP=192.168.0.100
+            - HOST_IP=localhost
         ports:
             - 8080:8080
         volumes:
@@ -27,7 +25,6 @@ services:
         volumes:
             - vlado-static:/static
     angular:
-        build: front-end
         image: vladimirmihov/angular-nginx
         ports:
             - 80:8080
@@ -36,6 +33,7 @@ services:
         depends_on:
             - pgsql
             - spring
+            - static
 volumes:
     vlado-pgdata:
     vlado-static:

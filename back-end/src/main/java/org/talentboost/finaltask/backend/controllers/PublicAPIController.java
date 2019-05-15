@@ -17,7 +17,7 @@ public class PublicAPIController {
     private ImageRepository repository;
 
     private final String STATIC_SERVER_BASE_URL = String.format("http://%s:8090/",
-            Objects.requireNonNull(System.getenv("STATIC_SERVER_IP"))
+            Objects.requireNonNull(System.getenv("HOST_IP"))
     );
 
     @GetMapping("/meme")
