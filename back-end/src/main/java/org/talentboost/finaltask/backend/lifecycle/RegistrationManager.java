@@ -25,7 +25,7 @@ import java.util.Objects;
 @Component
 public class RegistrationManager {
 
-    private final String APP_NAME = "VLADO";
+    private final String APP_NAME = "VLADO'S POLITICAL AGENDER";
     private final String APP_ADDRESS;
     private String APP_ID;
 

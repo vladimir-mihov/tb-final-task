@@ -43,10 +43,6 @@ public class FileService {
         return fileExtension;
     }
 
-    public String getFileNameFromUrl(String url) {
-        return url.substring(url.lastIndexOf("/") + 1);
-    }
-
     /**
      * Create file into the static directory and return the filename
      */
