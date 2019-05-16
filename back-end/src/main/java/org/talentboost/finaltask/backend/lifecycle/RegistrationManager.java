@@ -8,7 +8,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.talentboost.finaltask.backend.util.Env;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -27,9 +29,10 @@ public class RegistrationManager {
     private final String APP_ADDRESS;
     private String APP_ID;
 
-    RegistrationManager() {
+    @Autowired
+    RegistrationManager(Env env) {
         APP_ADDRESS = String.format("http://%s:8080",
-                Objects.requireNonNull(System.getenv("HOST_IP")));
+                Objects.requireNonNull(env.get("HOST_IP")));
     }
 
     @PostConstruct

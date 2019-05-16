@@ -16,11 +16,14 @@ import java.util.*;
 @CrossOrigin
 public class PrivateAPIController {
 
-    @Autowired
     private ImageRepository repository;
+    private FileService fileService;
 
     @Autowired
-    private FileService fileService;
+    public PrivateAPIController(ImageRepository repository, FileService fileService) {
+        this.repository = repository;
+        this.fileService = fileService;
+    }
 
     @PostMapping("/meme")
     public ResponseEntity<Image> createImage(

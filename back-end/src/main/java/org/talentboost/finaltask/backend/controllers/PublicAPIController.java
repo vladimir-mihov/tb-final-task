@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.talentboost.finaltask.backend.data.Image;
 import org.talentboost.finaltask.backend.repository.ImageRepository;
+import org.talentboost.finaltask.backend.util.Env;
 
 import java.util.Objects;
 
@@ -13,12 +14,18 @@ import java.util.Objects;
 @CrossOrigin
 public class PublicAPIController {
 
-    @Autowired
     private ImageRepository repository;
 
-    private final String STATIC_SERVER_BASE_URL = String.format("http://%s:8090/",
-            Objects.requireNonNull(System.getenv("HOST_IP"))
-    );
+    private final String STATIC_SERVER_BASE_URL;
+
+    @Autowired
+    public PublicAPIController(ImageRepository repository, Env env) {
+        this.repository = repository;
+
+        STATIC_SERVER_BASE_URL = String.format("http://%s:8090/",
+                Objects.requireNonNull(env.get("HOST_IP"))
+        );
+    }
 
     @GetMapping("/meme")
     public Iterable<Image> getAllImages() {
