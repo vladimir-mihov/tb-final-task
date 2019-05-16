@@ -36,7 +36,7 @@ docker build -t vladimirmihov/static .
 
 # Running the containers
 
-For installation you are going to need docker and docker-compose.
+For running the environment you are going to need docker and docker-compose.
 
 First put your local IP in the docker-compose.yml file under `services > spring > environment > HOST_IP` and then run
 
