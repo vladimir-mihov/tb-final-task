@@ -25,21 +25,25 @@ import java.util.Objects;
 @Component
 public class RegistrationManager {
 
-    private final String APP_NAME = "VLADO'S POLITICAL AGENDER";
+    private final String APP_NAME;
     private final String APP_ADDRESS;
+    private final String DOMAIN_API_URL;
     private String APP_ID;
 
     @Autowired
     RegistrationManager(Env env) {
+        APP_NAME = Objects.requireNonNull(env.get("APP_NAME"));
         APP_ADDRESS = String.format("http://%s:8080",
                 Objects.requireNonNull(env.get("HOST_IP")));
+
+        DOMAIN_API_URL = Objects.requireNonNull(env.get("DOMAIN_API_URL"));
     }
 
     @PostConstruct
     public void register() throws IOException {
         CloseableHttpClient client = HttpClients.createMinimal();
         HttpPost post = new HttpPost(
-                "http://meme-it-platform-service-api.herokuapp.com/domain/register"
+                DOMAIN_API_URL + "/register"
         );
 
         List<NameValuePair> urlParameters = new ArrayList<>();
@@ -73,8 +77,8 @@ public class RegistrationManager {
         CloseableHttpClient client = HttpClients.createMinimal();
 
         HttpDelete delete = new HttpDelete(
-                "http://meme-it-platform-service-api.herokuapp.com/" +
-                        "domain/deregister/" + APP_ID);
+                String.format("%s/deregister/%s", DOMAIN_API_URL, APP_ID)
+        );
 
         client.execute(delete);
         client.close();
