@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.talentboost.finaltask.backend</groupId>
     <artifactId>meme-share</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>meme-share</name>
     <description>Image sharing app</description>
 
