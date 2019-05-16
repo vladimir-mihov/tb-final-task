@@ -7,6 +7,33 @@ This repo contains the source code for the 3 main components of the project:
 
 All of these apps + the postgres database are put in containers and put into different repositories on docker hub.
 
+# Building from sources
+
+For building the project you are going to need docker, docker-compose, java>=8, maven, nodejs and angular cli.
+
+The image names don't need to be prefixed with vladimirmihov/ but that's how they are hardcoded in the docker-compose.yml
+
+Run the following commands in the corresponding directory:
+
+back-end/
+```bash
+mvn install
+docker build -t vladimirmihov/spring .
+```
+
+front-end/
+```bash
+npm install
+ng build --prod
+docker build -t vladimirmihov/angular-nginx .
+```
+
+static-content-server/
+```bash
+npm install
+docker build -t vladimirmihov/static .
+```
+
 # Running the containers
 
 For installation you are going to need docker and docker-compose.
