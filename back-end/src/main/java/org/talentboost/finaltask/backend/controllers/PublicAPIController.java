@@ -14,7 +14,7 @@ import java.util.Objects;
 @CrossOrigin
 public class PublicAPIController {
 
-    private ImageRepository repository;
+    private final ImageRepository repository;
 
     private final String STATIC_SERVER_BASE_URL;
 

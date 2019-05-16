@@ -1,5 +1,6 @@
 package org.talentboost.finaltask.backend.util;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,34 +14,22 @@ import java.util.*;
 @Service
 public class FileService {
 
-    private String staticDirectory = "/static";
-    private Map<String,String> allowedMimeTypes;
+    private final String staticDirectory = "/static";
+    private final ValidationService validationService;
 
-    public FileService() {
-        Map<String, String> tmpMap = new HashMap<>();
-
-        tmpMap.put("image/jpeg", "jpg");
-        tmpMap.put("image/png", "png");
-        tmpMap.put("image/gif", "gif");
-
-        this.allowedMimeTypes = Collections.unmodifiableMap(tmpMap);
+    @Autowired
+    public FileService(ValidationService validationService) {
+        this.validationService = validationService;
     }
 
     /**
      * Return file extension of file or throw if it is unsupported.
      */
     private String getFileExtension(MultipartFile file) {
-        String fileMimeType = Objects.requireNonNull(file.getContentType());
-        String fileExtension = allowedMimeTypes.get(fileMimeType);
+        String fileMimeType = file.getContentType();
 
-        if (fileExtension == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.UNSUPPORTED_MEDIA_TYPE,
-                    "Mime type is not supported."
-            );
-        }
-
-        return fileExtension;
+        return validationService.getAllowedMimeTypes()
+                .get(fileMimeType);
     }
 
     /**

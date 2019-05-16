@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.talentboost.finaltask.backend.data.Image;
 import org.talentboost.finaltask.backend.repository.ImageRepository;
 import org.talentboost.finaltask.backend.util.FileService;
+import org.talentboost.finaltask.backend.util.ValidationService;
 
 import java.io.IOException;
 import java.util.*;
@@ -16,13 +17,19 @@ import java.util.*;
 @CrossOrigin
 public class PrivateAPIController {
 
-    private ImageRepository repository;
-    private FileService fileService;
+    private final ImageRepository repository;
+    private final FileService fileService;
+    private final ValidationService validationService;
 
     @Autowired
-    public PrivateAPIController(ImageRepository repository, FileService fileService) {
+    public PrivateAPIController(
+            ImageRepository repository,
+            FileService fileService,
+            ValidationService validationService
+    ) {
         this.repository = repository;
         this.fileService = fileService;
+        this.validationService = validationService;
     }
 
     @PostMapping("/meme")
@@ -30,6 +37,9 @@ public class PrivateAPIController {
             @RequestParam("title") String title,
             @RequestParam("file") MultipartFile[] files
     ) throws IOException {
+        validationService.validateImageTitle(title);
+        validationService.requireFiles(files);
+
         String fileName = fileService.createFile(files[0]);
 
         Image toBeSaved = new Image(title, fileName);
@@ -45,11 +55,13 @@ public class PrivateAPIController {
             @RequestParam("title") String title,
             @RequestParam("file") MultipartFile[] files
     ) throws IOException {
+        validationService.validateImageTitle(title);
+
         Optional<Image> toAlter = repository.findById(id);
         if(toAlter.isPresent()) {
             Image image = toAlter.get();
 
-            image.setTitle(Objects.requireNonNull(title));
+            image.setTitle(title);
 
             if(files != null && files.length > 0) {
                 String oldFileName = image.getImage();
