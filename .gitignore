@@ -1,4 +1,3 @@
-# Ignore
 target/
 out/
 bin/
@@ -6,9 +5,4 @@ bin/
 .idea/
 *.iml
 
-static/*
-
 .attach_pid*
-
-# Allow
-!static/.gitkeep
