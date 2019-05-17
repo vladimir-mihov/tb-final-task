@@ -9,7 +9,7 @@ All of these apps + the postgres database are put in containers and put into dif
 
 # Building from sources
 
-For building the project you are going to need docker, docker-compose, java>=8, maven, nodejs and angular cli.
+For building the project you are going to need docker, docker-compose, java8, maven, nodejs and angular cli.
 
 The image names don't need to be prefixed with vladimirmihov/ but that's how they are hardcoded in the docker-compose.yml
 
@@ -33,6 +33,13 @@ static-content-server/
 npm install
 docker build -t vladimirmihov/static .
 ```
+
+postgres/
+```bash
+docker build -t vladimirmihov/postgres .
+```
+
+This step is optional because the containers are already on docker hub.
 
 # Running the containers
 

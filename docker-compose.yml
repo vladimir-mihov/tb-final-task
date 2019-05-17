@@ -9,7 +9,7 @@ services:
     spring:
         image: vladimirmihov/spring
         environment:
-            - HOST_IP=vlado
+            - HOST_IP=192.168.0.100
             - APP_NAME=VLADO's Political Agenger
             - DOMAIN_API_URL=https://meme-it-platform-service-api.herokuapp.com/domain
         ports:
