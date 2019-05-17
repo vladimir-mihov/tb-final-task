@@ -34,12 +34,12 @@ export class ImageSaverTemplateComponent implements OnInit {
 
     updateRows(): void {
         this.rows = new Array(this._rows).fill(0).map((x, i) => i);
-        this.redrawAll();
+        setTimeout( () => this.redrawAll(), 0);
     }
 
     updateCols(): void {
         this.cols = new Array(this._cols).fill(0).map((x, i) => i);
-        this.redrawAll();
+        setTimeout( () => this.redrawAll(), 0);
     }
 
     clearCanvas(row: number, col: number): void {
